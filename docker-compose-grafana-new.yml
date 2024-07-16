@@ -1,7 +1,7 @@
 version: '3'
 services:
   zabbix-server:
-    image: zabbix/zabbix-server-pgsql:vasl.1.3
+    image: zabbix/zabbix-server-pgsql:latest
     container_name: zabbix-server
     restart: always
     ports:
@@ -101,7 +101,7 @@ services:
       - zabbix-web
 
   zabbix-web:
-    image: zabbix/zabbix-web-nginx-pgsql:vasl.1.2
+    image: zabbix/zabbix-web-nginx-pgsql:latest
     container_name: zabbix-web
     restart: always
     ports:
@@ -121,7 +121,7 @@ services:
       - postgres
 
   postgres:
-    image: zabbix/postgres:vasl.1.0
+    image: zabbix/postgres:latest
     container_name: postgres
     restart: always
     ports:
@@ -134,20 +134,30 @@ services:
       - /var/lib/postgres-data:/var/lib/postgresql/data
       - ./resolv.conf:/etc/resolv.conf
       - ./postgresql.conf:/var/lib/postgresql/data/postgresql.conf
-        # grafana:
-        #   image: grafana/grafana:latest
-        #   container_name: grafana
-        #   ports:
-        #     - "3000:3000"
-        #   environment:
-        #     - GF_SECURITY_ADMIN_PASSWORD=zabbix # Change this to a secure password
-        #   depends_on:
-        #     - zabbix-server
-        #   volumes:
-        #     - ./grafana/provisioning:/etc/grafana/provisioning
-        #     - ./grafana/datasources:/etc/grafana/datasources
-        #     - ./grafana/grafana.ini:/etc/grafana/grafana.ini
-        #     - ./grafana/plugins:/var/lib/grafana/plugins
-        #     - ./:/var/lib/grafana/grafana.db
-        #   restart: always
-        #   command: grafana-cli plugins install alexanderzobnin-zabbix-app
+#######################################################
+###################Prometheus&Grafana##################
+#######################################################
+  prometheus:
+     image: bitnami/prometheus:latest
+     ports:
+       -  9090:9090
+     volumes:
+       - ./prometheus:/etc/prometheus/
+     restart: always
+ 
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    volumes:
+      - ./grafana_data:/var/lib/grafana
+      - ./grafana/datasources:/etc/grafana/datasources
+      - ./grafana/dashboards:/etc/grafana/dashboards
+    user: root
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+
