@@ -1,0 +1,153 @@
+version: '3'
+services:
+  zabbix-server:
+    image: zabbix/zabbix-server-pgsql:vasl.1.3
+    container_name: zabbix-server
+    restart: always
+    ports:
+      - "10051:10051"
+    volumes:
+      - ./zabbix/:/usr/lib/zabbix/alertscripts/
+    environment:
+      - DB_SERVER_HOST=postgres
+      - POSTGRES_DB=zabbix
+      - POSTGRES_USER=zabbix
+      - POSTGRES_PASSWORD=zabbix
+        #ZBX_ALLOWUNSUPPORTEDDBVERSIONS=0 # Available since 6.0.0
+        #ZBX_DBTLSCONNECT= # Available since 5.0.0
+        #ZBX_DBTLSCAFILE= # Available since 5.0.0
+        #ZBX_DBTLSCERTFILE= # Available since 5.0.0
+        #ZBX_DBTLSKEYFILE= # Available since 5.0.0
+        #ZBX_DBTLSCIPHER= # Available since 5.0.0
+        #ZBX_DBTLSCIPHER13= # Available since 5.0.0
+        #ZBX_VAULTDBPATH= # Available since 5.2.0
+        #ZBX_VAULTURL=https://127.0.0.1:8200 # Available since 5.2.0
+        #VAULT_TOKEN= # Available since 5.2.0
+        #ZBX_LISTENIP=
+        #ZBX_LISTENPORT=10051
+        #ZBX_LISTENBACKLOG=
+        #ZBX_STARTREPORTWRITERS=0 # Available since 5.4.0
+        #ZBX_WEBSERVICEURL=http://zabbix-web-service:10053/report # Available since 5.4.0
+        #ZBX_SERVICEMANAGERSYNCFREQUENCY=60 # Available since 6.0.0
+        #ZBX_HISTORYSTORAGEURL= # Available since 3.4.0
+        #ZBX_HISTORYSTORAGETYPES=uint,dbl,str,log,text # Available since 3.4.0
+      - ZBX_STARTPOLLERS=80  #ZBX_STARTPOLLERS=5
+        #ZBX_IPMIPOLLERS=0
+        #ZBX_STARTCONNECTORS=0 # Available since 6.4.0
+        #ZBX_STARTPREPROCESSORS=3 # Available since 3.4.0
+      - ZBX_STARTPOLLERSUNREACHABLE=12 #ZBX_STARTPOLLERSUNREACHABLE=1
+      - ZBX_STARTTRAPPERS=4  #ZBX_STARTTRAPPERS=5
+        #ZBX_STARTPINGERS=1
+      - ZBX_STARTDISCOVERERS=4 #ZBX_STARTDISCOVERERS=1
+      - ZBX_STARTHISTORYPOLLERS=20 # Available since 5.4.0
+      - ZBX_STARTHTTPPOLLERS=50 #ZBX_STARTHTTPPOLLERS=1
+        #ZBX_STARTODBCPOLLERS=1 # Available since 6.0.0
+        #ZBX_STARTTIMERS=1
+        #ZBX_STARTESCALATORS=1
+        #ZBX_STARTALERTERS=3 # Available since 3.4.0
+        #ZBX_JAVAGATEWAY=zabbix-java-gateway
+        #ZBX_JAVAGATEWAYPORT=10052
+        #ZBX_STARTJAVAPOLLERS=5
+      - ZBX_STARTLLDPROCESSORS=10 #ZBX_STARTLLDPROCESSORS=2 # Available since 4.2.0
+        #ZBX_STATSALLOWEDIP= # Available since 4.0.5
+        #ZBX_STARTVMWARECOLLECTORS=0
+        #ZBX_VMWAREFREQUENCY=60
+        #ZBX_VMWAREPERFFREQUENCY=60
+      - ZBX_VMWARECACHESIZE=128M
+        #ZBX_VMWARETIMEOUT=10
+        #ZBX_ENABLE_SNMP_TRAPS=false
+        #ZBX_SOURCEIP=
+      - ZBX_HOUSEKEEPINGFREQUENCY=24
+      - ZBX_MAXHOUSEKEEPERDELETE=50000
+        #ZBX_PROBLEMHOUSEKEEPINGFREQUENCY=1 # Available since 6.0.0
+        #ZBX_SENDERFREQUENCY=30 # Depcrecated since 3.4.0
+      - ZBX_CACHESIZE=512M  #ZBX_CACHESIZE=8M
+        #ZBX_CACHEUPDATEFREQUENCY=10
+      - ZBX_STARTDBSYNCERS=50
+        #ZBX_EXPORTFILESIZE=1G # Available since 4.0.0
+        #ZBX_EXPORTTYPE= # Available since 5.0.10 and 5.2.6
+        #ZBX_AUTOHANODENAME=fqdn # Allowed values: fqdn, hostname. Available since 6.0.0
+        #ZBX_HANODENAME= # Available since 6.0.0
+        #ZBX_AUTONODEADDRESS=fqdn # Allowed values: fqdn, hostname. Available since 6.0.0
+        #ZBX_NODEADDRESSPORT=10051 # Allowed to use with ZBX_AUTONODEADDRESS variable only. Available since 6.0.0
+        #ZBX_NODEADDRESS=localhost # Available since 6.0.0
+      - ZBX_HISTORYCACHESIZE=256M  #ZBX_HISTORYCACHESIZE=16M
+      - ZBX_HISTORYINDEXCACHESIZE=128M #ZBX_HISTORYINDEXCACHESIZE=4M
+        #ZBX_HISTORYSTORAGEDATEINDEX=0 # Available since 4.0.0
+      - ZBX_TRENDCACHESIZE=32M  #ZBX_TRENDCACHESIZE=4M
+        #ZBX_TRENDFUNCTIONCACHESIZE=4M
+      - ZBX_VALUECACHESIZE=64M  #ZBX_VALUECACHESIZE=8M
+        #ZBX_TRAPPERTIMEOUT=300
+        #ZBX_UNREACHABLEPERIOD=45
+        #ZBX_UNAVAILABLEDELAY=60
+        #ZBX_UNREACHABLEDELAY=15
+      - ZBX_LOGSLOWQUERIES=3000
+        #ZBX_STARTPROXYPOLLERS=1
+        #ZBX_PROXYCONFIGFREQUENCY=10
+        #ZBX_PROXYDATAFREQUENCY=1
+        #ZBX_TLSCAFILE=
+        #ZBX_TLSCRLFILE=
+        #ZBX_TLSCERTFILE=
+        #ZBX_TLSKEYFILE=
+        #ZBX_TLSCIPHERALL= # Available since 4.4.7
+        #ZBX_TLSCIPHERALL13= # Available since 4.4.7
+        #ZBX_TLSCIPHERCERT= # Available since 4.4.7
+        #ZBX_TLSCIPHERCERT13= # Available since 4.4.7
+        #ZBX_TLSCIPHERPSK= # Available since 4.4.7
+        #ZBX_TLSCIPHERPSK13= # Available since 4.4.7
+
+    depends_on:
+      - postgres
+      - zabbix-web
+
+  zabbix-web:
+    image: zabbix/zabbix-web-nginx-pgsql:vasl.1.2
+    container_name: zabbix-web
+    restart: always
+    ports:
+      - "5030:8080"
+    environment:
+      - CLIENT_MAX_BODY_SIZE= 100M
+      - GLOBAL_MAX_BODY_SIZE= 100M
+      - ZBX_SERVER_HOST=zabbix-server
+      - DB_SERVER_HOST=postgres
+      - POSTGRES_DB=zabbix
+      - POSTGRES_USER=zabbix
+      - POSTGRES_PASSWORD=zabbix
+    volumes:
+      - ./nginx/CFrontendSetup.php:/usr/share/zabbix/include/classes/setup/CFrontendSetup.php
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - postgres
+
+  postgres:
+    image: zabbix/postgres:vasl.1.0
+    container_name: postgres
+    restart: always
+    ports:
+      - "5432:5432"      
+    environment:
+      - POSTGRES_USER=zabbix
+      - POSTGRES_PASSWORD=zabbix
+      - POSTGRES_DB=zabbix
+    volumes:
+      - /var/lib/postgres-data:/var/lib/postgresql/data
+      - ./resolv.conf:/etc/resolv.conf
+      - ./postgresql.conf:/var/lib/postgresql/data/postgresql.conf
+        # grafana:
+        #   image: grafana/grafana:latest
+        #   container_name: grafana
+        #   ports:
+        #     - "3000:3000"
+        #   environment:
+        #     - GF_SECURITY_ADMIN_PASSWORD=zabbix # Change this to a secure password
+        #   depends_on:
+        #     - zabbix-server
+        #   volumes:
+        #     - ./grafana/provisioning:/etc/grafana/provisioning
+        #     - ./grafana/datasources:/etc/grafana/datasources
+        #     - ./grafana/grafana.ini:/etc/grafana/grafana.ini
+        #     - ./grafana/plugins:/var/lib/grafana/plugins
+        #     - ./:/var/lib/grafana/grafana.db
+        #   restart: always
+        #   command: grafana-cli plugins install alexanderzobnin-zabbix-app
