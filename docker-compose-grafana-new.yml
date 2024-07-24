@@ -131,9 +131,8 @@ services:
       - POSTGRES_PASSWORD=zabbix
       - POSTGRES_DB=zabbix
     volumes:
-      - /var/lib/postgres-data:/var/lib/postgresql/data
-      - ./resolv.conf:/etc/resolv.conf
-      - ./postgresql.conf:/var/lib/postgresql/data/postgresql.conf
+      - ./postgres/postgresql/data:/var/lib/postgresql/data
+      - ./postgresql/datapostgresql.conf:/var/lib/postgresql/data/postgresql.conf
 #######################################################
 ###################Prometheus&Grafana##################
 #######################################################
