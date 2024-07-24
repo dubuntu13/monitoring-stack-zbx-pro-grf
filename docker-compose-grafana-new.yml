@@ -143,6 +143,7 @@ services:
        -  9090:9090
      volumes:
        - ./prometheus:/etc/prometheus/
+       - ./prometheus/db:/prometheus
      restart: always
  
   grafana:
