@@ -16,4 +16,6 @@ After get clone of the project
 >>Now run a ``docker ps`` command to see if all of them is perfectly running or not.
 >>Now you should access to all the ui's.
 >>You can check out this link to find out how to connect to zabbix to grafana:
->><https://grafana.com/grafana/plugins/alexanderzobnin-zabbix-app/>
+>><https://grafana.com/grafana/plugins/alexanderzobnin-zabbix-app>
+>>and check this to intigrate Prometheus with Grafana:
+>><https://grafana.com/docs/grafana/latest/getting-started/get-started-grafana-prometheus>
