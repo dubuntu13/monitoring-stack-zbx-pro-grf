@@ -1,0 +1,151 @@
+---
+#tasks file for zabbix-sup
+  - name: create directory supp
+    block:
+      - name: Create support directory
+        file:
+          path: /<dir name>
+          state: directory
+          mode: '705'
+    tags:
+      - install-agent-deb
+      - install-agent2
+      - install-agent2-config
+      - config
+      - install-config-global
+      - test
+#############$COPY and install RPM$#############
+  - name:
+    block:
+      - name: copy RPM.6 install
+        copy:
+          src: zabbix-agent2-6.4-rhel6.rpm
+          dest: /support/zabbix-agent2-6.4-rhel6.rpm
+        when: (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "6")
+      
+      - name: copy RPM.7 install
+        copy:
+          src: zabbix-agent2-6.4-.rhel7.rpm
+          dest: /support/zabbix-agent2-6.4-.rhel7.rpm
+        when: (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "7")
+
+      - name: copy RPM.9 install
+        copy:
+          src: zabbix-agent2-6.4-rhel9.rpm
+          dest: /support/zabbix-agent2-6.4-rhel9.rpm
+        when: (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "9")
+
+      - name: copy pcre
+        copy:
+          src: pcre2-10.23-2.el7.rpm
+          dest: /support/pcre2-10.23-2.el7.rpm
+        when: (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "7")
+      
+      - name: Install pcre
+        shell: rpm -Uvh /support/pcre2-10.23-2.el7.rpm
+        when: (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "7")
+        ignore_errors: true
+
+      - name: Install zabbix-agent2
+        shell: rpm -Uvh /support/zabbix-agent2*.rpm 
+        when: (ansible_facts['distribution'] == "CentOS")
+    
+    tags:
+      - install-agent-rpm
+      - install-agent-rpm-config
+      - install-config-global
+  ##############$COPY and install DEB$#############
+  - name:
+    block:
+      - name: "copy DEB.18 install"
+        copy:
+          src: zabbix-agent2_6.4-ubuntu18.deb
+          dest: /support/zabbix-agent2_6.4-ubuntu18.deb
+        when: 
+          - (ansible_facts['distribution'] == "Ubuntu" and ansible_facts['lsb']['release'] == "18.04")
+
+      - name: "copy DEB.20 install"
+        copy:
+          src: zabbix-agent2_6.4-ubuntu20.deb
+          dest: /support/zabbix-agent2_6.4-ubuntu20.deb
+        when: 
+          - (ansible_facts['distribution'] == "Ubuntu" and ansible_facts['lsb']['release'] == "20.04")
+  
+      - name: "copy DEB.22 install"
+        copy:
+          src: zabbix-agent2_6.4-ubuntu22.deb
+          dest: /support/zabbix-agent2_6.4-ubuntu22.deb
+        when: (ansible_facts['distribution'] == "Ubuntu" and ansible_facts['lsb']['release'] == "22.04")
+  
+      - name: Install deb
+        shell: apt install /support/zabbix-agent2*.deb -y --allow-downgrades
+        when: (ansible_facts['distribution'] == "Ubuntu")
+
+    tags:
+      - install-agent-deb
+      - install-agent-deb-config
+      - install-config-global
+  ################$COPY .CONF FILE$#############
+  - name:
+    block:
+      - name: "copy custom.conf file"
+        template:
+          src: custom.conf.j2 
+          dest: /etc/zabbix/zabbix_agent2.d/custom.conf
+          mode: '644'
+   
+      - name: "copy .conf all"
+        copy:
+          src: "{{ item }}"
+          dest: /etc/zabbix/zabbix_agent2.d/
+          mode: '644'
+        with_items:
+          - userparameter.conf
+          - allowkey.conf
+
+      - name: "copy sudoer file"
+        copy:
+          src: zabbix-user
+          dest: /etc/sudoers.d/
+          mode: '700'
+
+    tags:
+      - install-agent-rpm-config
+      - install-agent-deb-config
+      - config  
+      - install-config-global
+   ################$restart zabbix-agent2$#############
+  - name:
+    block:
+      - name: restart zabbix-agent2
+        service:
+          name: zabbix-agent2
+          state: started
+   
+      - name: enable zabbix-agent
+        service:
+          name: zabbix-agent2
+          enabled: true
+    tags:
+      - install-agent-deb-config
+      - install-agent-rpm-config
+      - config
+      - install-config-global
+      - disable
+   
+   #############$Remove RPM or DEB file$#############
+  - name: 
+    block:
+      - name: remove RPM
+        command: "rm -rf /support/*.deb"
+        when: (ansible_facts['distribution'] == "Ubuntu")
+   
+      - name: remove DEB
+        command: "rm -rf /support/*.rpm"
+        when: (ansible_facts['distribution'] == "CentOS")
+
+    tags:
+      - install-agent-deb-config
+      - install-agent-rpm-config
+      - install-config-global
+   
