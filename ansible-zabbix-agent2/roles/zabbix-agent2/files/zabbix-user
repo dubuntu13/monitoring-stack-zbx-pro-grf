@@ -1,3 +1,0 @@
-# allows 'zabbix' user to run all commands without password.
-zabbix ALL=NOPASSWD: ALL
-
