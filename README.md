@@ -12,4 +12,8 @@ After get clone of the project
 
 >``sudo docker-compose up -d``
 
-This will take some minutes to get all images and build all container's.
+>This will take some minutes to get all images and build all container's.
+>>Now run a ``docker ps`` command to see if all of them is perfectly running or not.
+>>Now you should access to all the ui's.
+>>You can check out this link to find out how to connect to zabbix to grafana:
+>><https://grafana.com/grafana/plugins/alexanderzobnin-zabbix-app/>
