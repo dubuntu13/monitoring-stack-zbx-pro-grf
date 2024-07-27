@@ -6,7 +6,10 @@ ANSIBLE & DOCKER & DB's
 _________________
 1st.
 
-After get clone of the project.
-`cd monitoring-stack-zbx-pro-grf/monitoring_build`
-`sudo docker-compose up -d`
-This will take some minutes to get all images and build all container's.
+>After get clone of the project
+
+>```cd monitoring-stack-zbx-pro-grf/monitoring_build``
+
+>``sudo docker-compose up -d```
+
+>This will take some minutes to get all images and build all container's.
