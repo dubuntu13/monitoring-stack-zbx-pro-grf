@@ -4,3 +4,6 @@
 [submodule "ansible/ansible-zabbix-agent"]
 	path = ansible/ansible-zabbix-agent
 	url = git@github.com:dubuntu13/ansible-zabbix-agent.git
+[submodule "ansible/ansible-zabbix-agent2"]
+	path = ansible/ansible-zabbix-agent2
+	url = git@github.com:dubuntu13/ansible-zabbix-agent.git
