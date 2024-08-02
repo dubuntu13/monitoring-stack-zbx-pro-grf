@@ -7,3 +7,6 @@
 [submodule "ansible/ansible-zabbix-agent2"]
 	path = ansible/ansible-zabbix-agent2
 	url = git@github.com:dubuntu13/ansible-zabbix-agent.git
+[submodule "ansible/ansible-promtools"]
+	path = ansible/ansible-promtools
+	url = git@github.com:dubuntu13/ansible-prometheus-tools.git
