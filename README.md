@@ -22,4 +22,4 @@ After get clone of the project
 
 Ansible Describe:
 
->In the "./ansible" directory you can use anything to install as like as Zabbix-Agent, Pushgateway & Node_exporter on you production.
+>In the "./ansible" directory you can use anything to install as like as Zabbix-Agent, Pushgateway & Node_exporter on you production, These are has their own repository that I keep updating them in pul them here. Iam try to keep compatible the project.
