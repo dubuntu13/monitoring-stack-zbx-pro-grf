@@ -4,7 +4,7 @@ We will work with some tool's as like as Prometheus, Zabbix and Grafana. and int
 We need to know a little about ansible and docker to build out new monitoring stack.
 ANSIBLE & DOCKER & DB's
 _________________
-1st.
+Monitoring Build: (This is The path you need for Install monitoring server's)
 
 After get clone of the project
 
@@ -19,3 +19,7 @@ After get clone of the project
 >><https://grafana.com/grafana/plugins/alexanderzobnin-zabbix-app>
 >>and check this to intigrate Prometheus with Grafana:
 >><https://grafana.com/docs/grafana/latest/getting-started/get-started-grafana-prometheus>
+
+Ansible Describe:
+
+>In the "./ansible" directory you can use anything to install as like as Zabbix-Agent, Pushgateway & Node_exporter on you production.
