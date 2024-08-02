@@ -6,7 +6,7 @@ ANSIBLE & DOCKER & DB's
 _________________
 Monitoring Build: (This is The path you need for Install monitoring server's)
 
-After get clone of the project
+>After get clone of the project
 
 >``cd monitoring-stack-zbx-pro-grf/monitoring_build``
 
