@@ -1,27 +1,55 @@
-# monitoring
-This is a simple monitoring stack build.
-We will work with some tool's as like as Prometheus, Zabbix and Grafana. and intigrate all of them together.
-We need to know a little about ansible and docker to build out new monitoring stack.
-ANSIBLE & DOCKER & DB's
-_________________
-Monitoring Build: (This is The path you need for Install monitoring server's)
+# Monitoring Stack with Prometheus, Zabbix, and Grafana
 
->After get clone of the project
+This repository provides a simple and comprehensive monitoring stack using Prometheus, Zabbix, and Grafana. The stack is integrated and managed using Ansible and Docker. Below you will find the steps to set up and configure the monitoring stack, as well as additional resources for integration and usage.
 
->``cd monitoring-stack-zbx-pro-grf/monitoring_build``
+## Prerequisites
 
->``sudo docker-compose up -d``
+- Basic knowledge of Ansible and Docker
+- Docker and Docker Compose installed on your server
 
->This will take some minutes to get all images and build all container's.
->>Now run a ``docker ps`` command to see if all of them is perfectly running or not.
->>Now you should access to all the ui's.
->>You can check out this link to find out how to connect to zabbix to grafana:
->><https://grafana.com/grafana/plugins/alexanderzobnin-zabbix-app>
->>and check this to intigrate Prometheus with Grafana:
->><https://grafana.com/docs/grafana/latest/getting-started/get-started-grafana-prometheus>
->
->About Grafana, take care of this that for after the first time you turn on the containers should to comment the Grafana plugin command, to not run the command each time you turn it up
+## Installation
 
-Ansible Describe:
+Follow these steps to set up the monitoring stack on your server:
 
->In the "./ansible" directory you can use anything to install as like as Zabbix-Agent, Pushgateway & Node_exporter on you production, These are has their own repository that I keep updating them in pul them here. Iam try to keep compatible the project.
+1. **Clone the repository**:
+    ```sh
+    git clone https://github.com/dubuntu13/monitoring-stack-zbx-pro-grf
+    cd monitoring-stack-zbx-pro-grf/monitoring_build
+    ```
+
+2. **Build and run the Docker containers**:
+    ```sh
+    sudo docker-compose up -d
+    ```
+    This will take a few minutes to download all images and build the containers.
+
+3. **Verify the containers**:
+    ```sh
+    docker ps
+    ```
+    Ensure all containers are running correctly. Once they are up, you should be able to access the UIs for Prometheus, Zabbix, and Grafana.
+
+## Integration Guides
+
+- **Integrate Zabbix with Grafana**: Follow the instructions [here](https://grafana.com/grafana/plugins/alexanderzobnin-zabbix-app).
+- **Integrate Prometheus with Grafana**: Follow the instructions [here](https://grafana.com/docs/grafana/latest/getting-started/get-started-grafana-prometheus).
+
+> **Note**: After the first time you start the containers, comment out the Grafana plugin command to prevent it from running each time you start the containers.
+
+## Ansible Setup
+
+The `./ansible` directory contains playbooks to install Zabbix-Agent, Pushgateway, and Node_exporter on your production environment. These playbooks are kept up-to-date and compatible with the project. 
+
+## Usage
+
+### Access the UIs
+
+- **Prometheus**: `http://<your-server-ip>:9090`
+- **Zabbix**: `http://<your-server-ip>:10051`
+- **Grafana**: `http://<your-server-ip>:3000`
+
+### Managing the Stack
+
+To stop the stack:
+```sh
+sudo docker-compose down
