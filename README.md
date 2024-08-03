@@ -19,6 +19,8 @@ Monitoring Build: (This is The path you need for Install monitoring server's)
 >><https://grafana.com/grafana/plugins/alexanderzobnin-zabbix-app>
 >>and check this to intigrate Prometheus with Grafana:
 >><https://grafana.com/docs/grafana/latest/getting-started/get-started-grafana-prometheus>
+>
+>About Grafana, take care of this that for after the first time you turn on the containers should to comment the Grafana plugin command, to not run the command each time you turn it up
 
 Ansible Describe:
 
