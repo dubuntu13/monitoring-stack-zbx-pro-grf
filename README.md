@@ -53,10 +53,9 @@ The `./ansible` directory contains playbooks to install Zabbix-Agent, Pushgatewa
 To stop the stack:
 ```sh
 sudo docker-compose down
-‍‍‍‍```
-## Ansible Setup
+
+### Ansible Setup
 
 The `./ansible` directory contains playbooks to install Zabbix-Agent, Pushgateway, and Node_exporter on your production environment. These playbooks are kept up-to-date and compatible with the project. 
 
-## Usage
 
