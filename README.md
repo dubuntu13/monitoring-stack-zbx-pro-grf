@@ -53,6 +53,7 @@ The `./ansible` directory contains playbooks to install Zabbix-Agent, Pushgatewa
 To stop the stack:
 ```sh
 sudo docker-compose down
+```
 
 ### Ansible Setup
 
